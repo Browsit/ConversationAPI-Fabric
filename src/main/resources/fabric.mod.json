@@ -11,7 +11,7 @@
   "environment": "server",
   "entrypoints": {
     "main": [
-      "me.illusion.testmod.Testmod"
+      "me.illusion.conversations.fabric.FabricConversationsMod"
     ]
   },
   "mixins": [

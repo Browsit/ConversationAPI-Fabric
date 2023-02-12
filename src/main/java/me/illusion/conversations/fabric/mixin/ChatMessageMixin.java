@@ -1,10 +1,10 @@
-package me.illusion.testmod.mixin;
+package me.illusion.conversations.fabric.mixin;
 
 import com.pixelsandmagic.conversations.api.ChatVisibility;
 import com.pixelsandmagic.conversations.api.Conversations;
 import com.pixelsandmagic.conversations.api.ConversationsForwarder;
 import java.util.Iterator;
-import me.illusion.testmod.Testmod;
+import me.illusion.conversations.fabric.FabricConversationsMod;
 import net.minecraft.network.message.SignedMessage;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayNetworkHandler.class)
-public abstract class ChatMessageMixin implements ConversationsForwarder<Testmod> {
+public abstract class ChatMessageMixin implements ConversationsForwarder<FabricConversationsMod> {
 
     @Shadow public ServerPlayerEntity player;
 
     @Override
-    public void register(Testmod testmod) {
+    public void register(FabricConversationsMod fabricConversationsMod) {
 
     }
 

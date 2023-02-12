@@ -1,11 +1,11 @@
-package me.illusion.testmod;
+package me.illusion.conversations.fabric;
 
 import com.pixelsandmagic.conversations.api.Conversations;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.kyori.adventure.platform.fabric.FabricServerAudiences;
 
-public class Testmod implements ModInitializer {
+public class FabricConversationsMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
