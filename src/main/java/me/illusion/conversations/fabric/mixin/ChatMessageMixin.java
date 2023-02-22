@@ -1,9 +1,9 @@
 package me.illusion.conversations.fabric.mixin;
 
-import com.pixelsandmagic.conversations.api.ChatVisibility;
-import com.pixelsandmagic.conversations.api.Conversations;
-import com.pixelsandmagic.conversations.api.ConversationsForwarder;
 import java.util.Iterator;
+import me.illusion.conversations.api.ChatVisibility;
+import me.illusion.conversations.api.Conversations;
+import me.illusion.conversations.api.ConversationsForwarder;
 import me.illusion.conversations.fabric.FabricConversationsMod;
 import net.minecraft.network.message.SignedMessage;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
