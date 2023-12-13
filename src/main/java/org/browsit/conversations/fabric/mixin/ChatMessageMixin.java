@@ -1,10 +1,10 @@
-package me.illusion.conversations.fabric.mixin;
+package org.browsit.conversations.fabric.mixin;
 
 import java.util.Iterator;
-import me.illusion.conversations.api.ChatVisibility;
-import me.illusion.conversations.api.Conversations;
-import me.illusion.conversations.api.ConversationsForwarder;
-import me.illusion.conversations.fabric.FabricConversationsMod;
+import org.browsit.conversations.api.ChatVisibility;
+import org.browsit.conversations.api.Conversations;
+import org.browsit.conversations.api.ConversationsForwarder;
+import org.browsit.conversations.fabric.FabricConversationsMod;
 import net.minecraft.network.message.SignedMessage;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -15,6 +15,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * @author Illusion
+ * created on 2/22/2023
+ */
 @Mixin(ServerPlayNetworkHandler.class)
 public abstract class ChatMessageMixin implements ConversationsForwarder<FabricConversationsMod> {
 

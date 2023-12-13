@@ -1,11 +1,12 @@
-package me.illusion.conversations.fabric;
+package org.browsit.conversations.fabric;
 
-import me.illusion.conversations.api.Conversations;
+import org.browsit.conversations.api.Conversations;
 import net.kyori.adventure.platform.fabric.FabricServerAudiences;
 import net.minecraft.server.MinecraftServer;
 
 /**
- * Created by Illusion on 2/22/2023
+ * @author Illusion
+ * created on 2/22/2023
  * <p>
  * Bukkit wrapper for {@link Conversations}.
  */

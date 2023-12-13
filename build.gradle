@@ -41,7 +41,7 @@ dependencies {
     modImplementation "net.kyori:adventure-api:${project.adventure_version}"
     modImplementation "net.kyori:adventure-platform-fabric:5.10.1"
 
-    modImplementation 'me.illusion:api:1.0-SNAPSHOT'
+    modImplementation 'org.browsit:conversation-api:1.0-SNAPSHOT'
 
     modImplementation fileTree(dir: "libs", include: ["*.jar"])
 
