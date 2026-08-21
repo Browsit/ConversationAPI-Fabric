@@ -1,9 +1,9 @@
 package org.browsit.conversations.fabric.mixin;
 
 import java.util.Iterator;
-import org.browsit.conversations.api.ChatVisibility;
 import org.browsit.conversations.api.Conversations;
-import org.browsit.conversations.api.ConversationsForwarder;
+import org.browsit.conversations.api.action.ConversationsForwarder;
+import org.browsit.conversations.api.data.ChatVisibility;
 import org.browsit.conversations.fabric.FabricConversationsMod;
 import net.minecraft.network.message.SignedMessage;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * created on 2/22/2023
  */
 @Mixin(ServerPlayNetworkHandler.class)
-public abstract class ChatMessageMixin implements ConversationsForwarder<FabricConversationsMod> {
+public abstract class ChatMessageMixin implements ConversationsForwarder<FabricConversationsMod, ServerPlayerEntity> {
 
     @Shadow public ServerPlayerEntity player;
 
@@ -52,7 +52,7 @@ public abstract class ChatMessageMixin implements ConversationsForwarder<FabricC
                 player.sendMessage(text);
             }
 
-            forwardInput(conversation, player.getUuid(), messageText, ci::cancel);
+            forwardInput(conversation, messageText, player, ci::cancel);
         });
     }
 

@@ -1,6 +1,7 @@
 package org.browsit.conversations.fabric;
 
 import org.browsit.conversations.api.Conversations;
+import org.browsit.conversations.impl.provider.AdventureConversationsProvider;
 import net.kyori.adventure.platform.fabric.FabricServerAudiences;
 import net.minecraft.server.MinecraftServer;
 
@@ -8,7 +9,7 @@ import net.minecraft.server.MinecraftServer;
  * @author Illusion
  * created on 2/22/2023
  * <p>
- * Bukkit wrapper for {@link Conversations}.
+ * Fabric wrapper for {@link Conversations}.
  */
 public class FabricConversations {
 
@@ -20,7 +21,7 @@ public class FabricConversations {
     public static void init(MinecraftServer server) {
         if (initialized) throw new IllegalStateException("Conversations(Fabric) API already initialized");
 
-        Conversations.init(FabricServerAudiences.of(server));
+        Conversations.init(AdventureConversationsProvider.create(FabricServerAudiences.of(server)));
         initialized = true;
     }
 

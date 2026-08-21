@@ -26,7 +26,15 @@ repositories {
     // kyori adventure
 
     mavenCentral()
-    mavenLocal();
+
+    maven {
+        name = "JitPack"
+        url = "https://jitpack.io"
+    }
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 dependencies {
@@ -41,7 +49,8 @@ dependencies {
     modImplementation "net.kyori:adventure-api:${project.adventure_version}"
     modImplementation "net.kyori:adventure-platform-fabric:5.10.1"
 
-    modImplementation 'org.browsit:conversation-api:1.0-SNAPSHOT'
+    modImplementation("com.github.Browsit.ConversationAPI:conversation-api:${project.conversation_version}") { changing = true }
+    modImplementation("com.github.Browsit.ConversationAPI:conversation-impl:${project.conversation_version}") { changing = true }
 
     modImplementation fileTree(dir: "libs", include: ["*.jar"])
 
