@@ -100,6 +100,13 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            pom.withXml {
+                asNode().dependencies[0].dependency.each { dep ->
+                    if (dep.scope) {
+                        dep.scope*.value = 'compile'
+                    }
+                }
+            }
         }
     }
 
