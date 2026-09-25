@@ -2,7 +2,7 @@ package org.browsit.conversations.fabric;
 
 import org.browsit.conversations.api.Conversations;
 import org.browsit.conversations.impl.provider.AdventureConversationsProvider;
-import net.kyori.adventure.platform.fabric.FabricServerAudiences;
+import net.kyori.adventure.platform.modcommon.MinecraftServerAudiences;
 import net.minecraft.server.MinecraftServer;
 
 /**
@@ -21,7 +21,7 @@ public class FabricConversations {
     public static void init(MinecraftServer server) {
         if (initialized) throw new IllegalStateException("Conversations(Fabric) API already initialized");
 
-        Conversations.init(AdventureConversationsProvider.create(FabricServerAudiences.of(server)));
+        Conversations.init(AdventureConversationsProvider.create(MinecraftServerAudiences.of(server)));
         initialized = true;
     }
 
@@ -33,6 +33,7 @@ public class FabricConversations {
             throw new IllegalStateException("Conversations(Fabric) API not initialized");
 
         Conversations.cleanUp();
+        initialized = false;
     }
 
 }

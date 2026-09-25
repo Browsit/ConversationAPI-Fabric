@@ -5,10 +5,11 @@ import org.browsit.conversations.api.Conversations;
 import org.browsit.conversations.api.action.ConversationsForwarder;
 import org.browsit.conversations.api.data.ChatVisibility;
 import org.browsit.conversations.fabric.FabricConversationsMod;
-import net.minecraft.network.message.SignedMessage;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ServerboundChatPacket;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,40 +20,44 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * @author Illusion
  * created on 2/22/2023
  */
-@Mixin(ServerPlayNetworkHandler.class)
-public abstract class ChatMessageMixin implements ConversationsForwarder<FabricConversationsMod, ServerPlayerEntity> {
+@Mixin(ServerGamePacketListenerImpl.class)
+public abstract class ChatMessageMixin implements ConversationsForwarder<FabricConversationsMod, ServerPlayer> {
 
-    @Shadow public ServerPlayerEntity player;
+    @Shadow
+    public ServerPlayer player;
+
+    @Shadow
+    protected MinecraftServer server;
 
     @Override
     public void register(FabricConversationsMod fabricConversationsMod) {
 
     }
 
-    // inject the handleDecoratedMessage method, at the HEAD of the method
-    @Inject(method="handleDecoratedMessage" , at = @At("HEAD"), cancellable = true)
-    public void onChatMessage(SignedMessage message, CallbackInfo ci) {
-        Text text = message.getContent();
-        String messageText = text.getString();
+    // inject the handleChat method, at the HEAD of the method
+    @Inject(method = "handleChat", at = @At("HEAD"), cancellable = true)
+    public void onChatMessage(ServerboundChatPacket packet, CallbackInfo ci) {
+        String message = packet.message();
+        Component text = Component.literal(message);
 
-        Iterator<ServerPlayerEntity> recipients = player.getServer().getPlayerManager().getPlayerList().iterator();
+        Iterator<ServerPlayer> recipients = server.getPlayerList().getPlayers().iterator();
 
         while (recipients.hasNext()) {
-            ServerPlayerEntity recipient = recipients.next();
+            ServerPlayer recipient = recipients.next();
 
-            Conversations.getConversationOf(recipient.getUuid()).ifPresent(conversation -> {
-                if(conversation.getChatVisibility() != ChatVisibility.ALL) {
+            Conversations.getConversationOf(recipient.getUUID()).ifPresent(conversation -> {
+                if (conversation.getChatVisibility() != ChatVisibility.ALL) {
                     recipients.remove();
                 }
             });
         }
 
-        Conversations.getConversationOf(player.getUuid()).ifPresent(conversation -> {
-            if(conversation.echoOn()) {
-                player.sendMessage(text);
+        Conversations.getConversationOf(player.getUUID()).ifPresent(conversation -> {
+            if (conversation.echoOn()) {
+                player.sendSystemMessage(text);
             }
 
-            forwardInput(conversation, messageText, player, ci::cancel);
+            forwardInput(conversation, message, player, ci::cancel);
         });
     }
 
