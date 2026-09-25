@@ -3,8 +3,9 @@ plugins {
     id 'maven-publish'
 }
 
-version = project.mod_version
-group = project.maven_group
+def jitProps = gradle.startParameter.projectProperties
+version = jitProps['version'] ?: project.mod_version
+group = jitProps['group'] ?: project.maven_group
 
 repositories {
     mavenCentral()
