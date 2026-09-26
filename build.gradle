@@ -41,6 +41,22 @@ dependencies {
         exclude group: "net.kyori", module: "adventure-text-serializer-legacy"
     }
 
+    // conversation-api/impl are plain libraries (not Fabric mods), so bundle them inside this mod jar;
+    // otherwise a standalone install has nowhere to get org.browsit.conversations.api.* from.
+    include("com.github.Browsit.ConversationAPI:conversation-api:${project.conversation_version}") {
+        changing = true
+        transitive = false
+        exclude group: "net.kyori", module: "adventure-platform-api"
+        exclude group: "net.kyori", module: "adventure-api"
+    }
+    include("com.github.Browsit.ConversationAPI:conversation-impl:${project.conversation_version}") {
+        changing = true
+        transitive = false
+        exclude group: "net.kyori", module: "adventure-platform-api"
+        exclude group: "net.kyori", module: "adventure-api"
+        exclude group: "net.kyori", module: "adventure-text-serializer-legacy"
+    }
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
 }
 
