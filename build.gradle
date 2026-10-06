@@ -72,6 +72,9 @@ dependencies {
         exclude group: "net.kyori", module: "adventure-api"
         exclude group: "net.kyori", module: "adventure-text-serializer-legacy"
     }
+    include("net.kyori:adventure-text-serializer-legacy:${project.adventure_version}") {
+        transitive = false
+    }
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
 }
