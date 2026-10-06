@@ -4,7 +4,8 @@
   "package": "org.browsit.conversations.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ChatMessageMixin"
+    "ChatMessageMixin",
+    "ServerLifecycleMixin"
   ],
   "client": [
   ],
